@@ -4,9 +4,13 @@ let num = Math.trunc(Math.random() * 20) + 1;
 let jScore = 0;
 let jHighScore = 1000;
 
-// function sortNums(a, b) {
-//     return a > b ? 1 : b > a ? -1 : 0;
-// }
+const displayMessage = function(message) {
+    document.querySelector('.message').textContent = message;
+}
+
+const displayScore = function(score) {
+    document.querySelector('.score').textContent = score;
+}
 
 document.querySelector('.check').addEventListener('click', function() {
     const guess = Number(document.querySelector('.guess').value);
@@ -15,23 +19,14 @@ document.querySelector('.check').addEventListener('click', function() {
 
     //If there is no guess
     if (!guess) {
-        document.querySelector('.message').textContent = `🤷‍♀️No number entered.`;
+        displayMessage(`🤷‍♀️No number entered.`);
     }
 
     //If guess is incorrect
     else if (guess !== num) {
 
-        //If guess is too low
-        if (guess < num) {
-            document.querySelector('.message').textContent = `Wrong guess! Too low.`;
-        }
-
-        //If guess is too high
-        else if (guess > num) {
-            document.querySelector('.message').textContent = `Wrong guess! Too high.`;
-        }
-
-        
+        displayMessage(guess < num ? `Wrong guess! Too low.` : `Wrong guess! Too high.`);
+  
         jScore++;
 
         document.querySelector('.score').textContent = (jScore);
@@ -46,15 +41,13 @@ document.querySelector('.check').addEventListener('click', function() {
         
         document.querySelector('.number').textContent = num;
 
-        document.querySelector('.message').textContent = "🎉Congrats! You guessed it! You beat your high score!";
+        displayMessage("🎉Congrats! You guessed it! You beat your high score!");
 
         jHighScore = jScore > jHighScore ? jHighScore : jScore;
 
         document.querySelector('.highscore').textContent = (jHighScore);
         
-        }
-
-        
+        }     
 
     }
 
@@ -70,9 +63,9 @@ document.querySelector('.again').addEventListener('click', function() {
 
     document.querySelector('.number').textContent = '?';
 
-    document.querySelector('.guess').value = ``;
+    displayScore(``);
 
-    document.querySelector('.message').textContent = "Start guessing...";
+    displayMessage("Start guessing...");
 
     document.querySelector('.score').textContent = "0";
 
@@ -81,3 +74,8 @@ document.querySelector('.again').addEventListener('click', function() {
 //Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 
 //Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Restricted
+
+
+// function sortNums(a, b) {
+//     return a > b ? 1 : b > a ? -1 : 0;
+// }
